@@ -14,8 +14,8 @@ ext {
     junitVersion = '5.8.2'
 }
 
-sourceCompatibility = '1.8'
-targetCompatibility = '1.8'
+sourceCompatibility = "1.9"
+targetCompatibility = "1.9"
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -26,7 +26,13 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation group: 'javax.servlet', name: 'jstl', version: '1.2'
     implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
+    implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+    implementation 'commons-io:commons-io:2.15.1'
+    implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.3m'
+    compileOnly group: 'javax.servlet', name: 'servlet-api', version: '2.3'
+
 
 }
 

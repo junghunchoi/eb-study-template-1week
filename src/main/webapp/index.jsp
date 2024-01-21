@@ -1,5 +1,7 @@
-<%@ page import="com.study.connection.ConnectionTest" %>
+<%@ page import="com.study.connection.ConnectionMaria" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +15,24 @@
 
 
 <%
+    Connection con = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    try {
+        con = ConnectionMaria.getConnection();
+        stmt = con.createStatement();
+        String sql = "SELECT * FROM board;";
+        rs = stmt.executeQuery(sql);
 
-    ConnectionTest t = new ConnectionTest();
-    out.println(t.getConnection());
+        while (rs.next()) {
+            out.println(rs.toString());
+            out.println(rs.getString("title") + "<br>");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }finally {
+		ConnectionMaria.close(con,stmt,rs);
+    }
 
 %>
 

@@ -1,24 +1,20 @@
 package com.study.connection;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class ConnectionTest {
+public class ConnectionMaria {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/ebrainsoft_study";
     static final String USER = "ebsoft";
     static final String PASS = "ebsoft";
 
-    public Connection getConnection() throws Exception{
+    public static Connection getConnection() throws Exception{
 
         Connection conn = null;
         Statement stmt = null;
 
         try {
-            //STEP 2: Register JDBC driver
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
         } catch (SQLException ex) {
@@ -31,5 +27,13 @@ public class ConnectionTest {
         return conn;
     }
 
-
+    public static void close(Connection con, Statement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (con != null) con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
